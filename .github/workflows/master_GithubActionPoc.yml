@@ -54,6 +54,20 @@ jobs:
          createsandbox: flase
 
 
+    - name: Sonar Scan
+      uses: sijomc/sonarscan-action@1.1
+      with: 
+       host: ${{ secrets.SONARQUBE_HOST }}
+       login: ${{ secrets.SONARQUBE_TOKEN }}
+       projectKey: ${{ github.repository }}
+       projectName: ${{ github.repository }}
+
+       projectVersion: "v0.0.1"
+ 
+       projectBaseDir: .
+ 
+
+
   deploy:
     runs-on: self-hosted
     needs: build
@@ -76,17 +90,6 @@ jobs:
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_3a88462a81ad43c0957f62328c96ad99 }}
         package: .
         
-    - name: Sonar Scan
-      uses: sijomc/sonarscan-action@1.1
-      with: 
-       host: ${{ secrets.SONARQUBE_HOST }}
-       login: ${{ secrets.SONARQUBE_TOKEN }}
-       projectKey: ${{ github.repository }}
-       projectName: ${{ github.repository }}
 
-       projectVersion: "v0.0.1"
- 
-       projectBaseDir: .
- 
     
 
